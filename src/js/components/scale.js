@@ -3,7 +3,8 @@ import Note from "./note.js";
 
 export default class Scale extends React.Component {
   render() {
-    const {name, id, scale} = this.props.musicalKey;
+    const id = this.props.keyId;
+    const scale = this.props.scale;
     const scales = {
       major: [0, 2, 2, 1, 2, 2, 2, 1],
       minor: [0, 2, 1, 2, 2, 1, 2, 2]

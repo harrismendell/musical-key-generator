@@ -1,6 +1,11 @@
 import React from "react";
 
 export default class Menu extends React.Component {
+  handleKeyChange(e){
+    var keyId = e.target.value;
+    this.props.changeKey(parseInt(keyId))
+  }
+
   render() {
     const keyOptions = [
       "C",
@@ -15,7 +20,7 @@ export default class Menu extends React.Component {
       "A",
       "A#",
       "B"
-    ].map((name, i) => <option key={i} value={{name, i}}>{name}</option>)
+    ].map((name, keyId) => <option key={keyId} value={keyId}>{name}</option>)
 
     const scaleOptions = [
       {name: "Major", value: "major"},
@@ -24,7 +29,7 @@ export default class Menu extends React.Component {
 
     return (
       <form>
-        <select class="key">
+        <select class="key" onChange={this.handleKeyChange.bind(this)}>
           {keyOptions}
         </select>
         <select class="major-minor">

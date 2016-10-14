@@ -6,22 +6,23 @@ export default class ScalePage extends React.Component {
   constructor(){
     super();
     this.state = {
-      musicalKey: {
-        id: 0,
-        name: "C",
-        scale: "major"
-      }
+      keyId: 0,
+      scale: "major"
     }
+  }
+
+  changeKey(keyId){
+    this.setState({keyId})
   }
 
   render() {
     return (
       <div>
         <div class="row">
-          <Menu />
+          <Menu changeKey={this.changeKey.bind(this)} />
         </div>
         <div class="row">
-          <Scale musicalKey={this.state.musicalKey}/>
+          <Scale keyId={this.state.keyId} scale={this.state.scale}/>
         </div>
       </div>
     );
