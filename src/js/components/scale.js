@@ -6,36 +6,65 @@ export default class Scale extends React.Component {
     const id = this.props.keyId;
     const scale = this.props.scale;
     const scales = {
-      major: [0, 2, 2, 1, 2, 2, 2, 1],
-      minor: [0, 2, 1, 2, 2, 1, 2, 2]
+      major: [0, 2, 2, 1, 2, 2, 2],
+      minor: [0, 2, 1, 2, 2, 1, 2]
     };
     const distinctNotes = ["C", "D", "E", "F", "G", "A", "B"]
     const notes = [
-      { name: "C", active: false, type: "standard", category: "C"},
-      { name: "C#", active: false, type: "sharp", category: "C" },
-      { name: "D", active: false, type: "standard", category: "D" },
-      { name: "D#", active: false, type: "sharp", category: "D"  },
-      { name: "E", active: false, type: "standard", category: "E" },
-      { name: "F", active: false, type: "standard", category: "F" },
-      { name: "F#", active: false, type: "sharp", category: "F"  },
-      { name: "G", active: false, type: "standard", category: "G" },
-      { name: "G#", active: false, type: "sharp", category: "G"  },
-      { name: "A", active: false, type: "standard", category: "A" },
-      { name: "A#", active: false, type: "sharp", category: "A"  },
-      { name: "B", active: false, type: "standard", category: "B"},
+      [{ name: "C", active: false, type: "standard", category: "C"}, { name: "B#", active: false, type: "sharp", category: "B" }],
+      [{ name: "C#", active: false, type: "sharp", category: "C" }, { name: "Db", active: false, type: "flat", category: "D" }],
+      [{ name: "D", active: false, type: "standard", category: "D" }],
+      [{ name: "D#", active: false, type: "sharp", category: "D"  }, { name: "Eb", active: false, type: "flat", category: "E" }],
+      [{ name: "E", active: false, type: "standard", category: "E" }],
+      [{ name: "F", active: false, type: "standard", category: "F" }, { name: "E#", active: false, type: "sharp", category: "E" }],
+      [{ name: "F#", active: false, type: "sharp", category: "F"  }, { name: "Gb", active: false, type: "flat", category: "G" }],
+      [{ name: "G", active: false, type: "standard", category: "G" }],
+      [{ name: "G#", active: false, type: "sharp", category: "G"  }, { name: "Ab", active: false, type: "flat", category: "A" }],
+      [{ name: "A", active: false, type: "standard", category: "A" }],
+      [{ name: "A#", active: false, type: "sharp", category: "A"  }, { name: "Bb", active: false, type: "flat", category: "B" }],
+      [{ name: "B", active: false, type: "standard", category: "B"}],
     ];
 
     var startIndex = id;
     for (var step of scales[scale]){
       startIndex += step;
-      notes[startIndex % notes.length].active = true
+      var noteRow = notes[startIndex % notes.length];
+      var correctNote = noteRow[0];
+      if (noteRow.length > 1){
+        var activeFound = false;
+        var sameCategoryNotes = notes.reduce((prev, curr) => prev.concat(curr))
+          .filter(({category}) => category == noteRow[0].category);
+        for (var note of sameCategoryNotes){
+          if (note.active){
+            correctNote = noteRow[1];
+            break;
+          }
+        }
+      }
+      correctNote.active = true;
     }
 
     var noteNodes = [];
+    var noteColStyle = {
+      marginRight: "23px"
+    }
     for (var note of distinctNotes){
       noteNodes.push(
-        <div class="col-md-2">
-        {notes.filter(({category}) => category == note).map(({name, active}, i) => <Note key={i} name={name} active={active}/>)}
+        <div class="col-xs-1" style={noteColStyle}>
+        {
+          notes.reduce((prev, curr) => prev.concat(curr))
+          .filter(({category}) => category == note)
+          .sort(function(a, b){
+            if (a.type == "standard"){
+              return -1;
+            }
+            if (a.type == "sharp" && b.type == "flat"){
+              return -1
+            }
+            return 1;
+          })
+          .map(({name, active}, i) => <Note key={i} name={name} active={active}/>)
+        }
         </div>
       )
     }
