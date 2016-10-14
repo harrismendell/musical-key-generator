@@ -15,11 +15,15 @@ export default class ScalePage extends React.Component {
     this.setState({keyId})
   }
 
+  changeScale(scale){
+    this.setState({scale});
+  }
+
   render() {
     return (
       <div>
         <div class="row">
-          <Menu changeKey={this.changeKey.bind(this)} />
+          <Menu changeKey={this.changeKey.bind(this)} changeScale={this.changeScale.bind(this)} />
         </div>
         <div class="row">
           <Scale keyId={this.state.keyId} scale={this.state.scale}/>

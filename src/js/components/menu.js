@@ -6,6 +6,11 @@ export default class Menu extends React.Component {
     this.props.changeKey(parseInt(keyId))
   }
 
+  handleScaleChange(e){
+    var scale = e.target.value;
+    this.props.changeScale(scale);
+  }
+
   render() {
     const keyOptions = [
       "C",
@@ -32,7 +37,7 @@ export default class Menu extends React.Component {
         <select class="key" onChange={this.handleKeyChange.bind(this)}>
           {keyOptions}
         </select>
-        <select class="major-minor">
+        <select class="major-minor" onChange={this.handleScaleChange.bind(this)}>
           {scaleOptions}
         </select>
       </form>
