@@ -9,7 +9,6 @@ export default class Scale extends React.Component {
       major: [0, 2, 2, 1, 2, 2, 2],
       minor: [0, 2, 1, 2, 2, 1, 2]
     };
-    const distinctNotes = ["C", "D", "E", "F", "G", "A", "B"]
     const notes = [
       [{ name: "C", active: false, type: "standard", category: "C"}, { name: "B#", active: false, type: "sharp", category: "B" }],
       [{ name: "C#", active: false, type: "sharp", category: "C" }, { name: "Db", active: false, type: "flat", category: "D" }],
@@ -25,29 +24,24 @@ export default class Scale extends React.Component {
       [{ name: "B", active: false, type: "standard", category: "B"}],
     ];
 
+    let notesInUse = {C: false, D: false, E: false, F: false, G: false, A: false, B: false};
     var startIndex = id;
     for (var step of scales[scale]){
       startIndex += step;
       var noteRow = notes[startIndex % notes.length];
       var correctNote = noteRow[0];
-      if (noteRow.length > 1){
-        var activeFound = false;
-        var sameCategoryNotes = notes.reduce((prev, curr) => prev.concat(curr))
-          .filter(({category}) => category == noteRow[0].category);
-        for (var note of sameCategoryNotes){
-          if (note.active){
-            correctNote = noteRow[1];
-            break;
-          }
-        }
+      if (noteRow.length > 1 && notesInUse[correctNote.category]){
+        correctNote = noteRow[1];
       }
       correctNote.active = true;
+      notesInUse[correctNote.category] = true;
     }
 
     var noteNodes = [];
     var noteColStyle = {
       marginRight: "23px"
-    }
+    };
+    const distinctNotes = ["C", "D", "E", "F", "G", "A", "B"];
     for (var note of distinctNotes){
       noteNodes.push(
         <div class="col-xs-1" style={noteColStyle}>
