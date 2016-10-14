@@ -21,7 +21,10 @@ export default class ScalePage extends React.Component {
 
   render() {
     return (
-      <div>
+      <div class="col-md-4 col-md-offset-4">
+        <div class="row">
+          <h1>Key Gen</h1>
+        </div>
         <div class="row">
           <Menu changeKey={this.changeKey.bind(this)} changeScale={this.changeScale.bind(this)} />
         </div>

@@ -4,7 +4,6 @@ export default class Note extends React.Component {
   render() {
     const { name, active } = this.props;
     const noteContainerStyle = {
-      display: "inline-block",
       marginRight: "15px"
     }
     const noteStyle = {
