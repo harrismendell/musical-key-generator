@@ -14,16 +14,16 @@ export default class Menu extends React.Component {
   render() {
     const keyOptions = [
       "C",
-      "C#",
+      //"C#",
       "D",
-      "D#",
+      //"D#",
       "E",
       "F",
-      "F#",
+      //"F#",
       "G",
-      "G#",
+      //"G#",
       "A",
-      "A#",
+      //"A#",
       "B"
     ].map((name, keyId) => <option key={keyId} value={keyId}>{name}</option>)
 

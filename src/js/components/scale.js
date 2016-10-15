@@ -5,6 +5,8 @@ export default class Scale extends React.Component {
   render() {
     const id = this.props.keyId;
     const scale = this.props.scale;
+
+    //Numbers represent steps to take for the scale's pattern. 1 = Half, 2 = Whole. 
     const scales = {
       major: [0, 2, 2, 1, 2, 2, 2],
       minor: [0, 2, 1, 2, 2, 1, 2]
@@ -24,6 +26,8 @@ export default class Scale extends React.Component {
       [{ name: "B", active: false, type: "standard", category: "B"}],
     ];
 
+    //Iterate through the scale's steps, setting the appropriate notes to active.
+    //Determine which name to use (IE C vs B#) based on which notes have already been activated.
     let notesInUse = {C: false, D: false, E: false, F: false, G: false, A: false, B: false};
     var startIndex = id;
     for (var step of scales[scale]){
@@ -37,12 +41,12 @@ export default class Scale extends React.Component {
       notesInUse[correctNote.category] = true;
     }
 
+    //Filter and sort columns of each "category" for display on the page.
     var noteNodes = [];
     var noteColStyle = {
       marginRight: "23px"
     };
-    const distinctNotes = ["C", "D", "E", "F", "G", "A", "B"];
-    for (var note of distinctNotes){
+    for (var note of ["C", "D", "E", "F", "G", "A", "B"]){
       noteNodes.push(
         <div class="col-xs-1" style={noteColStyle}>
         {
