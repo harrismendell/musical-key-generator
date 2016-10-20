@@ -1,0 +1,35 @@
+.seven-cols .col-md-1,
+.seven-cols .col-sm-1,
+.seven-cols .col-xs-1,
+.seven-cols .col-lg-1 {
+  width: 14.285714285714285714285714285714%;
+}
+
+@media (max-width: 978px) {
+    .seven-cols .col-md-1,
+    .seven-cols .col-sm-1,
+    .seven-cols .col-xs-1,
+    .seven-cols .col-lg-1 {
+      width: 13.285714285714285714285714285714%;
+    }
+    .container {
+      padding:0;
+      margin:0;
+    }
+
+    body {
+      padding:0;
+    }
+
+    .navbar-fixed-top, .navbar-fixed-bottom, .navbar-static-top {
+      margin-left: 0;
+      margin-right: 0;
+      margin-bottom:0;
+    }
+}
+
+@media (max-width: 700px){
+  .note {
+    font-size: 30px;
+  }
+}

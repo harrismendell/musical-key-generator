@@ -6,7 +6,7 @@ export default class Layout extends React.Component {
   render() {
     return (
       <div>
-        <div class="container">
+        <div class="container-fluid">
           {this.props.children}
         </div>
       </div>

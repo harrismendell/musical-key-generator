@@ -2,6 +2,22 @@ import React from "react";
 import Note from "./note.js";
 
 export default class Scale extends React.Component {
+
+  getNotesForColumn(notes, note) {
+    return notes.reduce((prev, curr) => prev.concat(curr))
+      .filter(({category}) => category == note)
+      .sort(function(a, b){
+        if (a.type == "standard"){
+          return -1;
+        }
+        if (a.type == "sharp" && b.type == "flat"){
+          return -1
+        }
+        return 1;
+      })
+      .map(({name, active}, i) => <Note key={i} name={name} active={active}/>)
+  }
+
   render() {
     const id = this.props.keyId;
     const scale = this.props.scale;
@@ -43,33 +59,16 @@ export default class Scale extends React.Component {
 
     //Filter and sort columns of each "category" for display on the page.
     var noteNodes = [];
-    var noteColStyle = {
-      marginRight: "23px"
-    };
     for (var note of ["C", "D", "E", "F", "G", "A", "B"]){
       noteNodes.push(
-        <div class="col-xs-1" style={noteColStyle}>
-        {
-          notes.reduce((prev, curr) => prev.concat(curr))
-          .filter(({category}) => category == note)
-          .sort(function(a, b){
-            if (a.type == "standard"){
-              return -1;
-            }
-            if (a.type == "sharp" && b.type == "flat"){
-              return -1
-            }
-            return 1;
-          })
-          .map(({name, active}, i) => <Note key={i} name={name} active={active}/>)
-        }
+        <div class="col-md-1 col-sm-1 col-xs-1">
+        {this.getNotesForColumn(notes, note)}
         </div>
       )
     }
-
     return (
       <div>
-        <div class="row">
+        <div class="row seven-cols">
           {noteNodes}
         </div>
       </div>
