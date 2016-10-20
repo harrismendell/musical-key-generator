@@ -32,14 +32,22 @@ export default class Menu extends React.Component {
       {name: "Minor", value: "minor"}
     ].map(({name, value}, i) => <option key={i} value={value}>{name}</option>)
 
+    const keyStyle = {
+      marginRight: "5px"
+    }
+
     return (
-      <form>
-        <select class="key" onChange={this.handleKeyChange.bind(this)}>
-          {keyOptions}
-        </select>
-        <select class="major-minor" onChange={this.handleScaleChange.bind(this)}>
-          {scaleOptions}
-        </select>
+      <form class="form-inline">
+        <div class="form-group">
+          <select class="key form-control" style={keyStyle} onChange={this.handleKeyChange.bind(this)}>
+            {keyOptions}
+          </select>
+        </div>
+        <div class="form-group">
+          <select class="major-minor form-control" onChange={this.handleScaleChange.bind(this)}>
+            {scaleOptions}
+          </select>
+        </div>
       </form>
     );
   }
