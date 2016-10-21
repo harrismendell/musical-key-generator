@@ -7,7 +7,7 @@ export default class ScalePage extends React.Component {
     super();
     this.state = {
       keyId: 0,
-      scale: "major"
+      scale: "major",
     }
   }
 
@@ -26,7 +26,7 @@ export default class ScalePage extends React.Component {
     return (
         <div class="jumbotron col-md-8 col-md-offset-2" style={jumboStyle}>
           <div class="row">
-            <h1 class="text-center">Key Gen</h1>
+            <h1 class="text-center">Scale Generator</h1>
           </div>
           <div class="row">
             <div class="text-center">
